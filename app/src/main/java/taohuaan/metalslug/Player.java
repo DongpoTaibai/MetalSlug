@@ -81,6 +81,17 @@ public class Player {
     public static final int DIR_RIGHT = 1;
     public static final int DIR_LEFT  = 2; //public static final int MOVE_LEFT  = 2;
 
+    /**
+     * Global variable to storage the current player's image, include head and leg.
+     */
+    private Bitmap currentHeadImg = null;
+    private Bitmap currentLegImg  = null;
+    /**
+     * Global variable to storage positions of the current head's image
+     */
+    private int currentDrawX      = 0;
+    private int currentDrawY      = 0;
+
 
     /**
      * Construction
@@ -217,27 +228,38 @@ public class Player {
         Bitmap leg  = legArr[indexLeg];
         if(leg == null || leg.isRecycled())
             return;
-        int drawXLeg = x;
-        int drawYLeg = y - leg.getHeight();
-        int trans    = (dir == DIR_RIGHT ? Graphics.TRANS_MIRROR : Graphics.TRANS_NONE);
+        int drawX = X_DEFAULT;
+        int drawY = y - leg.getHeight();
+        int trans = (dir == DIR_RIGHT ? Graphics.TRANS_MIRROR : Graphics.TRANS_NONE);
 
         Graphics.drawMatrixImage(canvas, leg, 0, 0, leg.getWidth(), leg.getHeight(),
-                                    trans, drawXLeg, drawYLeg, 0, Graphics.TIMES_SCALE);
+                                    trans, drawX, drawY, 0, Graphics.TIMES_SCALE);
+        currentLegImg = leg;
 
         indexHead     = indexHead % headArr.length;
         Bitmap head   = headArr[indexHead];
         if(head == null || head.isRecycled())
             return;
-        int drawXHead = x;
-        int drawYHead = y - head.getHeight();
+        drawX = drawX - (head.getWidth() - leg.getWidth()) >> 1;
+        if(action == ACTION_STAND_LEFT)
+            drawX += (int)(6 * ViewManager.scale);
+        drawY = drawY - head.getHeight() + (int)(10 * ViewManager.scale);
 
         Graphics.drawMatrixImage(canvas, head, 0, 0, head.getWidth(), head.getHeight(),
-                                    trans, drawXHead, drawYHead, 0, Graphics.TIMES_SCALE);
+                                    trans, drawX, drawY, 0, Graphics.TIMES_SCALE);
+        currentHeadImg = head;
+        currentDrawX   = drawX;
+        currentDrawY   = drawY;
 
         drawCount++;
         if(drawCount >= 4){
-
+            drawCount = 0;
+            indexHead++;
+            indexLeg++;
         }
+
+        drawBullet(canvas);
+        drawHead(canvas);
 
     }
 
