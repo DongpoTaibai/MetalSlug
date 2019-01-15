@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import static taohuaan.metalslug.Monster.TYPE_FLY;
 import android.graphics.Canvas;
+import android.util.Log;
 
 
 /**
@@ -99,8 +100,9 @@ public class MonsterManager {
                         monster.getEndX(), monster.getEndY())){
                     monster.setDie(true);
                     delMonster.add(monster);
-                    ViewManager.soundPool.play();
+                    ViewManager.soundPool.play(ViewManager.soundMap.get(2), 1, 1, 0, 0, 1);
                     GameView.player.setHp(GameView.player.getHp() - 10);
+                    Log.d("MonsterManager ", "bomb and player die");
                 }
                 continue;
             }
@@ -113,9 +115,9 @@ public class MonsterManager {
                     bullet.setEffect(false);
                     monster.setDie(false);
                     if(monster.getType() == TYPE_FLY)
-                        ViewManager.soudPool.play();
+                        ViewManager.soundPool.play(ViewManager.soundMap.get(2), 1, 1, 0, 0, 1);
                     else
-                        ViewManager.soudPool.play();
+                        ViewManager.soundPool.play(ViewManager.soundMap.get(3), 1, 1, 0, 0, 1);
                     delMonster.add(monster);
                     delBullet.add(bullet);
                 }

@@ -132,7 +132,7 @@ public class Graphics {
         matrix.postRotate(degree);
         srcRect.set(srcX, srcY, srcX + width, srcY + height);
         matrix.mapRect(srcRect);
-        matrix.postTranslate(drawX - srcRect.left, drawY - srcRect.top);
+        matrix.postTranslate(drawX - srcRect.left, drawY - srcRect.top); //左上平移
 
         pts[0] = srcX;
         pts[1] = srcY;
@@ -160,7 +160,8 @@ public class Graphics {
 
 
     /**
-     * Drawing image , only don't rotate and scale.
+     * Drawing image , don't rotate and scale and include intercepted image display or
+     * original size image display.
      *
      * @param c         canvas drawing image
      * @param image     the source bitmap
@@ -229,7 +230,7 @@ public class Graphics {
 
 
     /**
-     *Scaling pictures proportionally, return a new bitmap
+     *Scaling pictures proportionally, return a new bitmap.
      *
      * @param   img       source pictures
      * @param   newWidth  generate new width

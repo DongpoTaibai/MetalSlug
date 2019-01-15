@@ -66,6 +66,8 @@ public class Monster {
 
     /**
      *  Constructor, initializing position according to monster type
+     *
+     *  @param type  value of monster type
      */
     public Monster(int type){
 
@@ -74,8 +76,10 @@ public class Monster {
             y = Player.Y_DEFAULT;
         else
             if(TYPE_FLY == type)
-                y = Util.randomIntRange(ViewManager.SCREEN_HEIGHT * 100);
+                y = ViewManager.SCREEN_HEIGHT * 50 /100 -
+                        Util.randomIntRange((int)ViewManager.scale * 150);
         x = Util.randomIntRange(ViewManager.SCREEN_WIDTH >> 1);
+
     }
 
 
@@ -101,7 +105,7 @@ public class Monster {
             return;
         switch (type) {
             case TYPE_BOMB:
-                drawAni(canvas, isDie ? ViewManager.bomb1Image : ViewManager.bombImage);
+                drawAni(canvas, isDie ? ViewManager.bomb2Image : ViewManager.bombImage);
                 break;
             case TYPE_FLY:
                 drawAni(canvas, isDie ? ViewManager.flyDieImage : ViewManager.flyImage);

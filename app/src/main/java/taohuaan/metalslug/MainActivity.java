@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+//        setContentView(R.layout.main);
         mainActivity = this;
 
         //設置全屏顯示
@@ -54,10 +54,15 @@ public class MainActivity extends Activity {
         windowWidth = metrics.widthPixels;
         windowHeight = metrics.heightPixels;
 
+        //Soft input mode
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         res = getResources();
 
+        setContentView(R.layout.main);
         //把遊戲界面加載到主佈局中
-        gameView = new GameView();
+        //gameView = new GameView(this, GameView.STAGE_INIT);
+        gameView   = new GameView(this.getApplicationContext(), GameView.STAGE_INIT);
         mainLayout = (FrameLayout)findViewById(R.id.mainLayout);
         mainLP = new FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);
         mainLayout.addView(gameView, mainLP);

@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 /**
  * author: Runzhi on 2018/12/12.
  *
- * Class of bullet.
+ * Bullet class
  */
 
 public class Bullet {

@@ -2,6 +2,7 @@ package taohuaan.metalslug;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.SoundPool;
 import java.util.HashMap;
 import android.media.AudioAttributes;
@@ -99,6 +100,9 @@ public class ViewManager {
      */
     public static void initScreen(int width, int height){
 
+        SCREEN_WIDTH = (short)width;
+        SCREEN_HEIGHT= (short)height;//SCREEN_HEIGHT= height;
+
     }
 
 
@@ -123,7 +127,8 @@ public class ViewManager {
             if(height != SCREEN_HEIGHT && SCREEN_HEIGHT != 0){
                 float scale = SCREEN_HEIGHT / height;
                 map         = Graphics.scale(temp, temp.getWidth() * scale, height * scale);
-                map.recycle();
+                //map.recycle();
+                temp.recycle();
             }else{
                 map = temp;
             }
@@ -308,6 +313,16 @@ public class ViewManager {
 
         MonsterManager.drawMonster(canvas);
 
+    }
+
+
+    /**
+     * Cleaning the screen with black
+     *
+     * @param c  canvas on the mobile display screen
+     */
+    public static void clearScreen(Canvas c){
+        c.drawColor(Color.BLACK);
     }
 
 
